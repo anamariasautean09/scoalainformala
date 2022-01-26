@@ -37,3 +37,4 @@ while numar_incercari <= 7:
         break
     else:
         print(' '.join(lista_cuvant))
+
