@@ -12,8 +12,6 @@
 # NNN - numar de 3 cifre din intervalul 001-999
 # C - cifra de control care are formula :(S*2 + A*7 + A*9 + L*1 + L*4 + Z*6 + Z*3 + J*5 + J*8 + N*2 + N*7 + N*9) % 11
 
-
-
 import datetime
 
 #despart string-ul primit ca input in partile sale componente S,AA,LL,ZZ,JJ,NNN,C
@@ -45,7 +43,7 @@ def birthDate(s: str, aa: str, ll: str, zz: str) -> datetime.date.__class__:
         birth_date = datetime.date(int(aa), int(ll), int(zz))    #verificare existenta data de nastere (in cazul lunii februarie)
         return birth_date
     except ValueError:
-        raise Exception("INVALID CNP - DATA INEXISTENTA") from None   #exceptie in cazul in care data nu exista (exemplu : 30 februarie, 29 februarie 2001)
+       return Exception("INVALID CNP - DATA INEXISTENTA")    #exceptie in cazul in care data nu exista (exemplu : 30 februarie, 29 februarie 2001)
 
 #verificare cifra de control
 def checkControlNumber(cnp: str, c: int):
@@ -55,29 +53,30 @@ def checkControlNumber(cnp: str, c: int):
         s += int(character) * int(factor)
     control = s % 11 if s % 11 < 10 else 1  #am folosit un if-then-else intr-o singura line (one line) pentru stabilirea valorii ce va fi pus in cifra de control
     if not control == c:
-        raise Exception("INVALID CNP - CIFRA DE CONTROL")   #exceptie pentru cifra de control care nu are valoarea corespunzatoare
+        return Exception("INVALID CNP - CIFRA DE CONTROL")   #exceptie pentru cifra de control care nu are valoarea corespunzatoare
 
 #verificare data nastere (daca data nasterii e in viitor atunci cnp-ul este invalid)
 def verifyDate(s: str, aa: str, ll: str, zz: str, today: datetime.date.__class__):
     birth_date = birthDate(s, str(aa), str(ll), str(zz))
     if birth_date > today:
-        raise Exception("INVALID CNP - DATA DE NASTERE INVALIDA") #exceptie pentru o data din viitor
+        return Exception("INVALID CNP - DATA DE NASTERE INVALIDA") #exceptie pentru o data din viitor
     print(f"Data de nastere este: {birth_date}")
 #verificare judet
 def checkJudet(jj: str):
     if int(jj) > 52 or int(jj) < 1:
-        raise Exception("INVALID CNP - COD DE JUDET INEXISTENT")  #exceptie pentru un alt cod de judet inexistent
+        return Exception("INVALID CNP - COD DE JUDET INEXISTENT")  #exceptie pentru un alt cod de judet inexistent
     print(f"Codul judetului este: {jj}")
+
 #verificare NNN
 # PENTRU O VERIFICARE MAI AMANUNTITA ESTE NEVOIE DE CNP-URILE INREGISTRATE IN ACEEASI ZI IN ACELASI SECTOR/JUDETdef checkNNN(nnn: int):
 def checkNNN(nnn: int):
      if nnn < 1:
-         raise Exception("INVALID CNP NNN")
+         return Exception("INVALID CNP NNN")
 
 #functia pentru validarea cnp-ului
 def validateCNP(cnp: str) -> str:
     if not len(cnp) == 13:         #verificare dimensiunea sirului ce reprezinta cnp-ul
-        raise Exception("INVALID CNP - LUNGIME CNP NECORESPUNZATOARE") #exceptie pentru lungimea string-ului introdus care reprezinta cnp-ul
+        return Exception("INVALID CNP - LUNGIME CNP NECORESPUNZATOARE") #exceptie pentru lungimea string-ului introdus care reprezinta cnp-ul
 
     s, aa, ll, zz, jj, nnn, c = splitCNP(cnp)   #atribuirea componentelor in fct de cnp-ul introdus
 
