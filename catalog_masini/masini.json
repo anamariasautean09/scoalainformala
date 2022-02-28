@@ -1,9 +1,4 @@
-import csv
-import json
-import pandas as pd
-import os
-
-input_file = {
+{
   "id1": {
     "brand": "Dacia",
     "model": "Logan",
@@ -86,6 +81,13 @@ input_file = {
     "price": "4000"
   },
 
+    "id1": {
+    "brand": "Dacia",
+    "model": "Logan",
+    "hp": "90",
+    "price": "4000"
+  },
+
     "id13": {
     "brand": "Volvo",
     "model": "v90",
@@ -142,48 +144,3 @@ input_file = {
     "price": "3999"
   }
 }
-
-fisier = pd.DataFrame(input_file)
-fisier_date = fisier.to_csv('input_file.csv')
-# print(fisier)
-
-# directory = "output_data"
-# parent_dir = "D:\ScoalaInformala\scoalainformala\catalog_masini"
-# path = os.path.join(parent_dir, directory)
-# os.mkdir(path)
-# print("directory '%s' created" % directory)
-
-
-# with open('masini.json') as f:
-#   data = json.load(f)
-# print(data)
-
-# fisier1 = pd.read_json('masini.json')
-# print(fisier1)
-
-masini = pd.Series(input_file)
-# print(masini)
-# print(masini.loc['id15'])
-
-
-# with open("input_file.csv", 'r') as file:
-#   reader = csv.reader(file)
-#   slow_cars = []
-#   for line in reader:
-#       for i, index in enumerate(line):
-#         print(line[0])
-#
-#
-#
-# with open("output_data/slow_cars.json", 'w') as file:
-#   json.dump(slow_cars, file, indent = 4)
-
-slow_cars = []
-for line in masini:
-  if line.get('hp') == 156:
-     json.dump(slow_cars)
-
-
-
-
-

@@ -1,5 +1,4 @@
 from random import choice
-from emoji import emojize
 
 
 #name of the player
