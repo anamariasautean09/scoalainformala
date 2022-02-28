@@ -17,10 +17,13 @@
 
 import datetime
 
-# despart string-ul primit ca input in partile sale componente S,AA,LL,ZZ,JJ,NNN,C
 
 
-def split_cnp(cnp: str) -> tuple[str, str, str, str, str, str, str]:   # realizarea unui tuplu de string-uri
+def split_cnp(cnp: str) -> tuple[str, str, str, str, str, str, str]:
+    """
+    despart string-ul primit ca input in partile sale componente S,AA,LL,ZZ,JJ,NNN,C
+    realizarea unui tuplu de string-uri
+    """
     s = cnp[:1]
     aa = cnp[1:3]
     ll = cnp[3:5]
@@ -65,7 +68,7 @@ def check_control_number(cnp: str, c: int):
         # am folosit functia zip care imi returneaza tupluri cu elemente din structurile initiale
         s += int(character) * int(factor)
     control = s % 11 if s % 11 < 10 else 1  
-# am folosit un if-then-else intr-o singura line (one line) pentru stabilirea valorii ce va fi pus in cifra de control
+# am folosit un if-else intr-o singura line (one line) pentru stabilirea valorii ce va fi pus in cifra de control
     if not control == c:
         return False
     return True
@@ -133,3 +136,18 @@ def functie_principala():
 
 if __name__ == "__main__":
     print(functie_principala())
+
+
+# cazuri de verifcare
+
+#  valid            6000709124606    cnp-ul meu
+#  invalid          1234567890123    cifre random
+# lungime gresita   23456            len = 5  must be 13
+# judet inexistent  6000709473451    47
+# NNN = 000         2951209120001    000
+# Cif de control    6000709124607    cnp-ul meu cu alta cira de control
+# string            6000709abcd      abcd - string
+# data inexistenta  6000732124606    32.07
+# data inexistenta  6010229124606    29.02.2001
+# data din viitor   5220709124607    9 iulie 2022
+# prima cifra 0     0961209124601
