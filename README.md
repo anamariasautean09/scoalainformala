@@ -1,1 +1,1 @@
-Cursuri scoala informala
+Cursuri Scoala Informala de IT.
