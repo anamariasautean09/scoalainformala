@@ -3,6 +3,7 @@ import datetime
 import os
 
 # crearea fisierului care contine categoriile de task-uri
+# !!!!!!!! categoriile introduse de la tastatura (DE MODIFICAT)
 
 categorii = [["curs"], ["cumparaturi"], ["munca"], ["cadouri"]]
 
@@ -219,7 +220,7 @@ def filter_task():
     with open("taskuri_deadline_responsabil_categorie.txt", "r") as file:
         informatii = file.readlines()
         str_filter = input(
-            "Introduceti un string dupa care se va realiza filtrarea datelor: "
+            "Introduceti un string dupa care se va realiza filtrarcea datelor: "
         )
         print(f"Task-urile care incep/contin cu {str_filter} sunt: \n")
         for line in informatii:
@@ -289,7 +290,7 @@ def choose_filter_type():
 
 def add_new_task():
     new_task = input(
-        "Introduceti numele noului task-ului pe care doriti sa il editati: "
+        "Introduceti numele noului task-ului pe care doriti sa adaugati: "
     )
     with open("taskuri_deadline_responsabil_categorie.txt", "a") as file:
 
