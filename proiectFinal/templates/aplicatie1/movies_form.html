@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+     <form enctype="multipart/form-data" method="POST">
+        {% csrf_token %}
+         {% for field in form %}
+         <br>
+                {% if field.label == 'poster' %}
+                    {{ field.label }} <img src="{{ field.poster }}">
+                {% else %}
+         <div align="center"><b>{{ field.label }} {{ field }} {{ field.errors }}</b></div>
+         <br>
+         <br>
+                {% endif %}
+            {% endfor %}
+         <br>
+        <div align="center"><button class="btn btn-success" type="submit">Save</button></div>
+    </form>
+
+{% endblock %}
+

@@ -1,0 +1,119 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<p>
+<!--<div class="btn-group">-->
+<!--  <button type="button" class="btn btn-warning">Categories</button>-->
+<!--  <button type="button" class="btn btn-warning dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">-->
+<!--    <span class="sr-only">Toggle Dropdown</span>-->
+<!--  </button>-->
+<!--  <div class="dropdown-menu">-->
+<!--   <a class="dropdown-item" href="{% url 'movieApplication:action' %}"  style="font-family:fourier">ACTION</a>-->
+<!--<a class="dropdown-item" href="{% url 'movieApplication:drama' %}"  style="font-family:fourier">DRAMA</a>-->
+<!--<a class="btn btn-warning rounded-pill" href="{% url 'movieApplication:comedy' %}"  style="font-family:fourier">COMEDY</a>-->
+<!--<a class="btn btn-warning rounded-pill" href="{% url 'movieApplication:romance' %}"  style="font-family:fourier">ROMANCE</a>-->
+<!--<a class="btn btn-warning rounded-pill" href="{% url 'movieApplication:adventure' %}"  style="font-family:fourier">ADVENTURE</a>-->
+<!--<a class="btn btn-warning rounded-pill" href="{% url 'movieApplication:love' %}"  style="font-family:fourier">LOVE</a>-->
+<!--<a class="btn btn-warning rounded-pill" href="{% url 'movieApplication:cartoons' %}"  style="font-family:fourier">CARTOONS</a>-->
+<!--  </div>-->
+<!--</div>-->
+<div align="center">
+<a class="btn btn-warning rounded-pill" href="{% url 'movieApplication:action' %}"  style="font-family:fourier">ACTION</a>
+<a class="btn btn-warning rounded-pill" href="{% url 'movieApplication:drama' %}"  style="font-family:fourier">DRAMA</a>
+<a class="btn btn-warning rounded-pill" href="{% url 'movieApplication:comedy' %}"  style="font-family:fourier">COMEDY</a>
+<a class="btn btn-warning rounded-pill" href="{% url 'movieApplication:romance' %}"  style="font-family:fourier">ROMANCE</a>
+<a class="btn btn-warning rounded-pill" href="{% url 'movieApplication:adventure' %}"  style="font-family:fourier">ADVENTURE</a>
+<a class="btn btn-warning rounded-pill" href="{% url 'movieApplication:love' %}"  style="font-family:fourier">LOVE</a>
+<a class="btn btn-warning rounded-pill" href="{% url 'movieApplication:cartoons' %}"  style="font-family:fourier">CARTOONS</a>
+        <br>
+        <br>
+<a class="btn btn-warning rounded-pill" href="{% url 'movieApplication:topRatedMovie' %}"  style="font-family:fourier">TOP RATED MOVIES</a>
+<a class="btn btn-warning rounded-pill" href="{% url 'movieApplication:mostWatchedMovie' %}"  style="font-family:fourier">MOST WATCHED MOVIES</a>
+<a class="btn btn-warning rounded-pill" href="{% url 'movieApplication:recentlyAddedMovie' %}"  style="font-family:fourier">RECENTLY ADDED MOVIES</a>
+<a class="btn btn-warning rounded-pill" href="{% url 'movieApplication:lista_filme' %}"  style="font-family:fourier">ALL MOVIES</a>
+
+
+
+</div>
+</p>
+
+<table class="table table-striped">
+    <thead class="thead-dark">
+    {% if request.user.is_superuser %}
+    <tr>
+        <th>Index</th>
+        <th>Title</th>
+        <th>Description</th>
+        <th>Release_date</th>
+        <th>Duration</th>
+        <th>Budget</th>
+        <th>Rating</th>
+        <th>Poster</th>
+        <th>Category</th>
+        <th>Language</th>
+        <th>Status</th>
+        <th>Trailer</th>
+        <th>State</th>
+        <th>Actions</th>
+    </tr>
+    {% endif %}
+    </thead>
+    <tbody>
+    <div class="col-md-12">
+        <div class="row">
+            {% for item in moviesL %}
+            {% if request.user.is_superuser is False %}
+            <div class="col-md-3">
+                <div class="card" style="width: 20rem;" align="center">
+                    <img class="card-img-top" src="{{ item.poster.url }}" alt="Card image cap">
+                    <div class="card-body">
+                        <h5 class="card-title" style="font-size: 25px; font-family:fourier;"><b>{{ item.title }}</b></h5>
+                        <a class="btn btn-success rounded-pill"  href="{% url 'movieApplication:movieDetails' item.id %}"  style="font-family:fourier">View details</a>
+                    </div>
+
+                </div>
+                <br>
+            </div>
+
+
+            {% elif request.user.is_superuser %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td>{{ item.title }}</td>
+                <td>{{ item.description }}</td>
+                <td>{{ item.release_date }}</td>
+                <td>{{ item.duration }}</td>
+                <td>{{ item.budget }}</td>
+                <td>{{ item.rating }}</td>
+                <td>
+                    <img src="{{ item.poster.url }}">
+                </td>
+                <td>{{ item.category }}</td>
+                <td>{{ item.language }}</td>
+                <td>{{ item.status }}</td>
+                <td><a class="btn btn-info rounded-pill" href="{{ item.trailer_url }}">Trailer</a></td>
+                <td>
+                    {% if item.active == 1 %}
+                    <span>Active</span>
+                    {% else %}
+                    <span>Inactive</span>
+                    {% endif %}
+                </td>
+                <td><a class="btn btn-success rounded-pill" href="{% url 'movieApplication:updateMovie' item.id %}" style="font-family:fourier">Update movie</a>
+                    {% if item.active == 1 %}
+                    <br>
+                    <br>
+                    <a class="btn btn-danger rounded-pill" href="{% url 'movieApplication:deleteMovie' item.id %}" style="font-family:fourier">Delete movie</a>
+                    {% else %}
+                    <a class="btn btn-info rounded-pill" href="{% url 'movieApplication:activateMovie' item.id %}" style="font-family:fourier">Activate movie</a>
+                    {% endif %}
+                </td>
+            </tr>
+            {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+    </tbody>
+</table>
+
+{% endblock %}

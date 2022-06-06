@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block content %}
+    <center>
+        {% if searched %}
+          <h3>You searched for "{{ searched }}"</h3>
+          <h4>We found this: </h4>
+            <br/>
+            {% for movie in movies %}
+               <a href="{% url 'movieApplication:movieDetails' movie.id %}" style="font-size: 22px;">{{ movie.title }}</a> <br/>
+            {% endfor %}
+        {% endif %}
+    </center>
+{% endblock %}
