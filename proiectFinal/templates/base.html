@@ -1,0 +1,73 @@
+<html>
+<head>
+
+    {% block title %}
+    {% endblock %}
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+          rel="stylesheet">
+</head>
+<body style="background-color:">
+<div class="container-fluid">
+    <div class="row">
+        <div class="col col-lg-13">
+            <header class="header">
+                <nav class="navbar navbar-dark bg-dark">
+                    <span></span>
+                    <a class="navbar-brand" style="font-size:36px; color:white; font-family:fourier;"><b>MovieMania</b></a>
+                    {% if request.user.is_superuser %}
+                    <a class="btn  btn-outline-warning rounded-pill" href="{% url 'movieApplication:lista_filme' %}"
+                       style="font-family:fourier">ACTIVE MOVIES</a>
+                    <br>
+                    <br>
+                    <br>
+                    <a class="btn  btn-outline-warning rounded-pill" href="{% url 'movieApplication:inactiveMovies' %}"
+                       style="font-family:fourier">INACTIVE MOVIES</a>
+                    <br>
+                    <br>
+                    <br>
+                    {% if request.user.is_superuser %}
+                    <a class="btn btn-outline-warning rounded-pill" href="{% url 'movieApplication:addMovie' %}"
+                       style="font-family:fourier">ADD MOVIE</a>
+                    {% endif %}
+                    <br>
+                    <br>
+                    <br>
+                    <a class="btn  btn-outline-warning rounded-pill" href="/admin" style="font-family:fourier">ADMIN</a>
+                    <br>
+                    <br>
+                    <br>
+                    {% endif %}
+                    {% if request.user.is_authenticated is False %}
+                    <a class="btn btn-outline-warning rounded-pill" href="{% url 'login' %}">LOGIN</a>
+                    <a class="btn btn-outline-warning rounded-pill" href="{% url 'movieApplication:register' %}">REGISTER</a>
+                    {% elif request.user.is_authenticated %}
+                    <form class="form-inline my-2 my-lg-0" method="POST"
+                          action="{% url 'movieApplication:searchMovies' %}">
+                        {% csrf_token %}
+                        <input type="search" class="form-control mr-sm-3" placeholder="Search for a movie"
+                               aria-label="Search" name="searched" aria-describedby="search-addon"
+                               style="font-family:fourier"/>
+                        <button class="btn btn-outline-warning my-2 my-sm-0 rounded-pill" type="submit"
+                                style="font-family:fourier"> Search
+                        </button>
+                    </form>
+
+                    <a class="btn btn-outline-warning rounded-pill" href="{% url 'logout' %}"
+                       style="font-family:fourier">LOGOUT</a>
+                    {% endif %}
+                    <br>
+                    <br>
+                    <br>
+
+
+                </nav>
+            </header>
+        </div>
+    </div>
+</div>
+{% block content %}
+{% endblock %}
+
+</body>
+</html>

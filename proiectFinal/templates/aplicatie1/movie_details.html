@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% block content %}
+{% if request.user.is_superuser %}
+<a class="btn btn-danger" href="{% url 'movieApplication:addMovie' %}">Add movie</a>
+{% endif %}
+
+<tbody>
+<br/>
+{% if request.user.is_superuser is False %}
+<div  align="center">
+<div class="card border-dark md-1" style="max-width: 1100px;" align="left" >
+  <div class="row g-0">
+    <div class="col-md-4">
+      <img src="{{ object.poster.url }}" class="img-fluid rounded-start" width="950" height="1250">
+    </div>
+    <div class="col-md-8">
+      <div class="">
+       <h5 class="card-title" style="font-size: 40px; font-family:courier;"><b>{{ object.title }}</b></h5>
+        <p class="card-text" style="font-family:courier;"><b><i>{{ object.description }}</i></b></p>
+        <p class="card-text" style="font-size: 20px; font-family:courier;"><b>Release date: {{ object.release_date}}</b></p>
+        <p class="card-text" style="font-size: 20px; font-family:courier;"><b>Duration: {{ object.duration}}</b></p>
+          <p class="card-text" style="font-size: 20px; font-family:courier;"><b>Rating: {{ object.rating }}</b></p>
+          <p class="card-text" style="font-size: 20px; font-family:courier;"><b>Budget: {{ object.budget }}</b></p>
+          <p class="card-text" style="font-size: 20px; font-family:courier;"><b>Category: {{ object.category }}</b></p>
+          <p class="card-text" style="font-size: 20px; font-family:courier;"><b>Language: {{ object.language }}</b></p>
+          <p class="card-text" style="font-size: 20px; font-family:courier;"><b>Status: {{ object.status }}</b></p>
+          <p class="text-muted" style="font-size: 20px; font-family:courier;"><b><a class="btn btn-info rounded-pill" href="{{ object.trailer_url }}">Click here for trailer</a></b></p>
+      </div>
+    </div>
+  </div>
+</div>
+    </div>
+<br>
+<div align="center">
+<b><a href="{% url 'movieApplication:lista_filme' %}"><input type="button" value="Back" class="btn btn-warning rounded-pill" style="font-size: 20px; font-family:courier;" /></a></b>
+    </div>
+{% endif %}
+</tbody>
+
+{% endblock %}
